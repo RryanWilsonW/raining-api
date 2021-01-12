@@ -1,0 +1,20 @@
+.favorable {
+    background-color: green;
+}
+
+.moderate {
+    background-color: yellow;
+}
+
+.severe {
+    background-color: red;
+}
+
+.forecast-div{
+    background-color: rgb(65, 126, 226);
+    color: white;
+    width: 10%;
+    height: 200px;
+    margin: 1%;
+    float: left;
+}
