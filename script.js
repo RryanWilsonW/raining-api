@@ -1,16 +1,6 @@
 let APIKey = "9e123c7bd50385362ccd78f9199f0aef"
 let cities = [];
 
-function onLoad() {
-    let ls = (localStorage.getItem('search-history'));
-    let lsObj = JSON.parse(ls)
-    for(o = 0; o < lsObj.length; o++){
-        cities.push(lsObj[o])
-     }
-    cities.push(JSON.parse(ls)[0]);
-}
-//onLoad();
-
 /*Function that will pull information from API, and display it into
 <div> #today && <div> #forecast*/
 function renderCityInfo() {
@@ -151,7 +141,7 @@ $('#search-button').on('click', function(){
     cities.push(userInput);
     localStorage.setItem('search-history',JSON.stringify(cities));
     renderCities();
-    renderCityInfo(this);
+    renderCityInfo();
 })
 $(document).on('click', '.city', renderCityInfo);
 
