@@ -9,7 +9,7 @@ function onLoad() {
      }
     cities.push(JSON.parse(ls)[0]);
 }
-onLoad();
+//onLoad();
 
 /*Function that will pull information from API, and display it into
 <div> #today && <div> #forecast*/
@@ -17,7 +17,10 @@ function renderCityInfo() {
     $('#today').empty();
     $('#forecast').empty();
     $('#today').addClass('todays-weather');
+
+
     let cityName = $(this).attr('data-name');
+    
     let geoURL = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${APIKey}&limit=1`
     let lat = 0;
     let lon = 0;
@@ -38,14 +41,26 @@ function renderCityInfo() {
     }).then(function(response){
         let currentDate = moment.unix(response.current.dt).utcOffset('-0500').format('(M/D/YYYY)');
         console.log(response)
+        
+        // <div> for holding #today title information.
+        let todayTitleDiv = $('<div>');
+        todayTitleDiv.attr('id', 'todayTitleDiv');
+        todayTitleDiv.addClass('row');
+        // <div> for holding current weather information.
+        let currentWeatherDiv = $('<div>');
+        currentWeatherDiv.attr('id', 'currentWeatherDiv');
+        // Append new divs to <div> #today.
+        $('#today').append(todayTitleDiv, currentWeatherDiv);
         //City Title
         let cityTitle = $('<h2>');
-        cityTitle.text(cityName + ': ' + currentDate);
+        cityTitle.text(cityName + ' ' + currentDate);
         //Weather Icon
         let iconID = response.current.weather[0].icon;
-        let iconURL = `http://openweathermap.org/img/wn/${iconID}.png`
-        let iconImg = $('<img>')
+        let iconURL = `http://openweathermap.org/img/wn/${iconID}.png`;
+        let iconImg = $('<img>');
         iconImg.attr('src', iconURL);
+        //Append Icon && City title to #todayTitleDiv.
+        $('#todayTitleDiv').append(cityTitle, iconImg);
 
         //Current Temp.
         let currentTemp = $('<p>');
@@ -56,10 +71,19 @@ function renderCityInfo() {
         //Current Wind Speed.
         let currentWindSpeed = $('<p>');
         currentWindSpeed.text('Wind Speed: ' + response.current.wind_speed + ' MPH')
+       
+       
         // Current UV Index
+        let UVIndexDiv = $('<div>');
+        UVIndexDiv.attr('id', 'UVIndexDiv');
+        UVIndexDiv.addClass('row')
+        let UVTitle = $('<p>');
+        UVTitle.text('UV Index:');
+        UVTitle.addClass('UVTitle')
         let UVIndex = $('<p>');
         let currentUVIndex = response.current.uvi;
-        UVIndex.text('UV index: ' + currentUVIndex);
+        UVIndex.text(currentUVIndex);
+
 
         if(currentUVIndex < 3){
             UVIndex.addClass('favorable')
@@ -69,8 +93,9 @@ function renderCityInfo() {
         } else {
             UVIndex.addClass('severe')
         }
-        $('#today').append(cityTitle, iconImg, currentTemp, currentHumidity, currentWindSpeed, UVIndex);
 
+       $('#currentWeatherDiv').append(currentTemp, currentHumidity, currentWindSpeed, UVIndexDiv);
+       $('#UVIndexDiv').append(UVTitle, UVIndex);
         // Forecast Information
         let forecastTitle = $('<h2>')
         forecastTitle.text('5-Day Forecast:')
@@ -79,7 +104,6 @@ function renderCityInfo() {
         let weeklyForecast = (response.daily);
         for(i = 1; i <= 5 ; i++){
             createForeCast(response);
-    
         }
 
         function createForeCast(forecast){
@@ -90,28 +114,18 @@ function renderCityInfo() {
             forecastDiv.addClass('forecast-div col-md-2')
             forecastDiv.attr('id', 'forecast' + [i])
             $('#forecast').append(forecastDiv);
-
             //Creates forecast temperature
             let forecastTemp = $('<p>');
             forecastTemp.text('Temperatue: ' + weeklyForecast[i].temp.day + ' °F');
-
             let forecastIcon = $('<img>')
             let forecastIconID = forecast.daily[i].weather[0].icon
             let fiURL = `http://openweathermap.org/img/wn/${forecastIconID}.png` 
             forecastIcon.attr('src', fiURL)
-
-
             let forecastHumidity = $('<p>');
             forecastHumidity.text('Humidity: ' + weeklyForecast[i].humidity + ' %');
 
-            $('#forecast' + [i]).append(forecastTitle, forecastIcon, forecastTemp, forecastHumidity);
-            
-            
-            
-        
+            $('#forecast' + [i]).append(forecastTitle, forecastIcon, forecastTemp, forecastHumidity);           
         }
-        
-
     });
     })
 };
@@ -137,6 +151,7 @@ $('#search-button').on('click', function(){
     cities.push(userInput);
     localStorage.setItem('search-history',JSON.stringify(cities));
     renderCities();
+    renderCityInfo(this);
 })
 $(document).on('click', '.city', renderCityInfo);
 

@@ -1,20 +1,80 @@
 .favorable {
-    background-color: green;
+    background-color: lightgreen;
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: white;
 }
 
 .moderate {
     background-color: yellow;
+    border-radius: 5px;
+    padding: 7px;
+    color: white;
 }
 
 .severe {
     background-color: red;
+    border-radius: 5px;
+    padding: 7px;
+    color: white;
+}
+
+#today {
+    border: lightgrey solid 1px;
+    border-radius: 5px;
+    padding: 40px;
+    margin-left: 15px;
+    margin-right:50px;
+    line-height: 30px;
+}
+
+#todayTitleDiv {
+    margin-left: 1px;
+    margin-bottom: 20px;
+}
+
+#currentWeatherDiv {
+    font-size: 20px;
+    line-height: 40px;
+}
+
+
+#forecast {
+    padding: 15px;
 }
 
 .forecast-div{
     background-color: rgb(65, 126, 226);
     color: white;
     width: 10%;
-    height: 200px;
-    margin: 1%;
+    height: 225px;
+    line-height: 30px;
+    margin: 15px;
+    padding: 15px;
     float: left;
+    border-radius: 5px;
+}
+
+.forecast-div p {
+    font-size: 17px;
+}
+
+
+.UVTitle {
+    margin-left: 15px;
+    margin-right: 5px;
+}
+
+.city {
+    border:solid lightgrey 1px;
+    background-color: white;
+    color: grey;
+    width:1px;
+    padding-right: 90%;
+    padding-left:20px;
+    font-size: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
