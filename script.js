@@ -12,7 +12,6 @@ onLoad();
 /*Function that will pull information from API, and display it into
 <div> #today && <div> #forecast*/
 function renderCityInfo(cityName) {
-    console.log('got to rendercityinfo')
     $('#today').empty();
     $('#forecast').empty();
     $('#today').addClass('todays-weather');
@@ -25,7 +24,6 @@ function renderCityInfo(cityName) {
         url: geoURL,
         method: 'GET'
     }).then(function(latLongRes){
-        console.log(latLongRes);
         lat = latLongRes[0].lat;
         lon = latLongRes[0].lon;
 
@@ -37,7 +35,6 @@ function renderCityInfo(cityName) {
         method: 'GET'
     }).then(function(response){
         let currentDate = moment.unix(response.current.dt).utcOffset('-0500').format('(M/D/YYYY)');
-        console.log(response)
         
         // <div> for holding #today title information.
         let todayTitleDiv = $('<div>');
@@ -129,7 +126,6 @@ function renderCityInfo(cityName) {
 
 //Function that will take each city, and render into button form on the page.
 function renderCities() {
-    console.log('got to rendercities');
     $('.history').empty();
     
     for(i = 0; i < cities.length; i++) {
