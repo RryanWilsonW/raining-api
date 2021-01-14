@@ -1,15 +1,21 @@
 let APIKey = "9e123c7bd50385362ccd78f9199f0aef"
 let cities = [];
 
+function onLoad() {
+    let citiesJSON = localStorage.getItem('search-history');
+    if (citiesJSON !== null) {
+        cities = JSON.parse(citiesJSON);
+        renderCities();  
+    }
+}
+onLoad();
 /*Function that will pull information from API, and display it into
 <div> #today && <div> #forecast*/
-function renderCityInfo() {
+function renderCityInfo(cityName) {
+    console.log('got to rendercityinfo')
     $('#today').empty();
     $('#forecast').empty();
     $('#today').addClass('todays-weather');
-
-
-    let cityName = $(this).attr('data-name');
     
     let geoURL = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${APIKey}&limit=1`
     let lat = 0;
@@ -19,6 +25,7 @@ function renderCityInfo() {
         url: geoURL,
         method: 'GET'
     }).then(function(latLongRes){
+        console.log(latLongRes);
         lat = latLongRes[0].lat;
         lon = latLongRes[0].lon;
 
@@ -122,6 +129,7 @@ function renderCityInfo() {
 
 //Function that will take each city, and render into button form on the page.
 function renderCities() {
+    console.log('got to rendercities');
     $('.history').empty();
     
     for(i = 0; i < cities.length; i++) {
@@ -143,7 +151,11 @@ $('#search-button').on('click', function(){
     renderCities();
     renderCityInfo(userInput);
 })
-$(document).on('click', '.city', renderCityInfo);
+$(document).on('click', '.city', onCityClick);
+
+function onCityClick() {
+    renderCityInfo($(this).attr('data-name'));
+};
 
 
 
