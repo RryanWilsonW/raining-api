@@ -17,7 +17,7 @@ function renderCityInfo(cityName) {
     $('#forecast').empty();
     $('#today').addClass('todays-weather');
     
-    let geoURL = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${APIKey}&limit=1`
+    let geoURL = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${APIKey}&limit=1`
     let lat = 0;
     let lon = 0;
         
