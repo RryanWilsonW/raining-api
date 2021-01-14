@@ -53,7 +53,7 @@ function renderCityInfo(cityName) {
         cityTitle.text(cityName + ' ' + currentDate);
         //Weather Icon
         let iconID = response.current.weather[0].icon;
-        let iconURL = `http://openweathermap.org/img/wn/${iconID}.png`;
+        let iconURL = `https://openweathermap.org/img/wn/${iconID}.png`;
         let iconImg = $('<img>');
         iconImg.attr('src', iconURL);
         //Append Icon && City title to #todayTitleDiv.
@@ -116,7 +116,7 @@ function renderCityInfo(cityName) {
             forecastTemp.text('Temperatue: ' + weeklyForecast[i].temp.day + ' °F');
             let forecastIcon = $('<img>')
             let forecastIconID = forecast.daily[i].weather[0].icon
-            let fiURL = `http://openweathermap.org/img/wn/${forecastIconID}.png` 
+            let fiURL = `https://openweathermap.org/img/wn/${forecastIconID}.png` 
             forecastIcon.attr('src', fiURL)
             let forecastHumidity = $('<p>');
             forecastHumidity.text('Humidity: ' + weeklyForecast[i].humidity + ' %');
