@@ -141,7 +141,7 @@ $('#search-button').on('click', function(){
     cities.push(userInput);
     localStorage.setItem('search-history',JSON.stringify(cities));
     renderCities();
-    renderCityInfo();
+    renderCityInfo(userInput);
 })
 $(document).on('click', '.city', renderCityInfo);
 
